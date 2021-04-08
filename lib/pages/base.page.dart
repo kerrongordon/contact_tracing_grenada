@@ -9,7 +9,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class BasePage extends HookWidget {
-  final ScreenTwo _screenTwo = ScreenTwo();
   final ScreenThree _screenThree = ScreenThree();
   final ScreenFour _screenFour = ScreenFour();
   final ScreenFive _screenFive = ScreenFive();
