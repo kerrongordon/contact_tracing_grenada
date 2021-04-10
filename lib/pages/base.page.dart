@@ -9,8 +9,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class BasePage extends HookWidget {
-  final ScreenThree _screenThree = ScreenThree();
-  final ScreenFour _screenFour = ScreenFour();
   final ScreenFive _screenFive = ScreenFive();
 
   @override
@@ -26,8 +24,8 @@ class BasePage extends HookWidget {
       children: [
         ScreenOne(pageController: _pageController),
         ScreenTwo(pageController: _pageController),
-        _screenThree,
-        _screenFour,
+        ScreenThree(pageController: _pageController),
+        ScreenFour(pageController: _pageController),
         _screenFive,
       ],
     );

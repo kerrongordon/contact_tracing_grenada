@@ -10,7 +10,7 @@ class ScreenOne extends HookWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('COVID-19 Contact Tracing Survey App'),
+        title: Text('COVID-19 Survey App'),
         centerTitle: true,
       ),
       body: Center(
@@ -19,24 +19,29 @@ class ScreenOne extends HookWidget {
           children: [
             Text(
               'Welcome',
-              style: TextStyle(fontSize: 25),
+              style: const TextStyle(fontSize: 25),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: Image(
+                width: 150,
+                image: AssetImage('assets/web_hi_res_512.png'),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 40),
               child: Text(
                 'The easiest way to track your symptoms and ensure your safety!',
-                style: TextStyle(fontSize: 15),
+                style: TextStyle(fontSize: 18),
                 textAlign: TextAlign.center,
               ),
             ),
             ElevatedButton(
                 child: Text('Get Started'),
                 onPressed: () {
-                  pageController.animateToPage(
-                    1,
-                    duration: const Duration(milliseconds: 400),
-                    curve: Curves.linear,
-                  );
+                  pageController.nextPage(
+                      duration: const Duration(milliseconds: 400),
+                      curve: Curves.linear);
                 }),
           ],
         ),

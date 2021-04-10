@@ -5,7 +5,7 @@ class ScreenFive extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('COVID-19 Contact Tracing Survey App'),
+        title: Text('COVID-19 Survey App'),
         centerTitle: true,
       ),
       body: Center(
