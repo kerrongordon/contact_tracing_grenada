@@ -17,7 +17,7 @@ class BasePage extends HookWidget {
     return PageView(
       controller: _pageController,
       onPageChanged: onPageChange,
-      // physics: const NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       children: [
         ScreenOne(pageController: _pageController),
         ScreenTwo(pageController: _pageController),
