@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import '../services/data.service.dart';
 
 class ScreenThree extends HookWidget {
   final PageController pageController;
@@ -8,9 +11,11 @@ class ScreenThree extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _userData = useProvider(userData);
     final _optionOne = useState(false);
     final _optionTwo = useState(false);
     final _optionThree = useState(false);
+    final _data = useProvider(dataService);
     return Scaffold(
       appBar: AppBar(
         title: Text('COVID-19 Survey App'),
@@ -85,6 +90,10 @@ class ScreenThree extends HookWidget {
               ElevatedButton(
                 child: Text('Go To Next Page'),
                 onPressed: () {
+                  _userData.optionOne = _optionOne.value;
+                  _userData.optionTwo = _optionTwo.value;
+                  _userData.optionThree = _optionThree.value;
+                  _data.adduser(_userData);
                   pageController.nextPage(
                       duration: const Duration(milliseconds: 400),
                       curve: Curves.linear);

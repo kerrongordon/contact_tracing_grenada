@@ -1,23 +1,23 @@
 class UserModel {
-  final String firstName;
-  final String lastName;
-  final int age;
-  final String gender;
-  final bool optionOne;
-  final bool optionTwo;
-  final bool optionThree;
-  final bool optionFour;
-  final bool optionFive;
+  String firstName;
+  String lastName;
+  int age;
+  String gender;
+  bool optionOne;
+  bool optionTwo;
+  bool optionThree;
+  bool optionFour;
+  bool optionFive;
 
   UserModel({
     this.firstName,
     this.lastName,
     this.age,
     this.gender,
-    this.optionOne,
-    this.optionTwo,
-    this.optionThree,
-    this.optionFour,
-    this.optionFive,
+    this.optionOne = false,
+    this.optionTwo = false,
+    this.optionThree = false,
+    this.optionFour = false,
+    this.optionFive = false,
   });
 }
