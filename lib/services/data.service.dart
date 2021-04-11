@@ -13,15 +13,6 @@ class UserData extends StateNotifier<UserModel> {
   UserModel get user => _user;
 
   UserModel adduser(UserModel user) {
-    print(user.firstName);
-    print(user.lastName);
-    print(user.age);
-    print(user.gender);
-    print(user.optionOne);
-    print(user.optionTwo);
-    print(user.optionThree);
-    print(user.optionFour);
-    print(user.optionFive);
     return _user;
   }
 }
