@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import '../services/data.service.dart';
+import 'screen.five.dart';
 
 class ScreenFour extends HookWidget {
   final PageController pageController;
@@ -9,6 +13,8 @@ class ScreenFour extends HookWidget {
   Widget build(BuildContext context) {
     final _optionFour = useState(false);
     final _optionFive = useState(false);
+    final _userData = useProvider(userData);
+    final _data = useProvider(dataService);
     return Scaffold(
       appBar: AppBar(
         title: Text('COVID-19 Survey App'),
@@ -114,9 +120,17 @@ class ScreenFour extends HookWidget {
                 ElevatedButton(
                   child: Text('See Results'),
                   onPressed: () {
-                    pageController.nextPage(
-                        duration: const Duration(milliseconds: 400),
-                        curve: Curves.linear);
+                    _userData.optionFour = _optionFour.value;
+                    _userData.optionFive = _optionFive.value;
+                    _data.adduser(_userData);
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => ScreenFive(
+                          userData: _userData,
+                        ),
+                      ),
+                    );
+                    pageController.jumpToPage(0);
                   },
                 ),
               ],

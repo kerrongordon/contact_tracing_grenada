@@ -1,8 +1,10 @@
+import 'package:contact_tracing_grenada/components/dropdown.comp.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-// import 'package:contact_tracing_grenada/services/data.service.dart';
-import 'package:contact_tracing_grenada/models/user.model.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import '../services/data.service.dart';
 
 class ScreenTwo extends HookWidget {
   final PageController pageController;
@@ -13,13 +15,9 @@ class ScreenTwo extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final _userdata = useProvider(dataService);
-
-    final _userData = new UserModel();
-    final _firstName = useState('');
-    final _lastName = useState('');
-    final _age = useState('');
-    final _gender = useState('');
+    final snackBar = SnackBar(content: Text('Please Select a Gender!'));
+    final _userData = useProvider(userData);
+    final _data = useProvider(dataService);
 
     return Scaffold(
       appBar: AppBar(
@@ -45,7 +43,7 @@ class ScreenTwo extends HookWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10),
                           child: TextFormField(
-                            onSaved: (val) => _firstName.value = val,
+                            onSaved: (val) => _userData.firstName = val,
                             validator: MinLengthValidator(3,
                                 errorText:
                                     'First Name must be at least 3 characters long'),
@@ -58,7 +56,7 @@ class ScreenTwo extends HookWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10),
                           child: TextFormField(
-                            onSaved: (val) => _lastName.value = val,
+                            onSaved: (val) => _userData.lastName = val,
                             validator: MinLengthValidator(3,
                                 errorText:
                                     'Last Name must be at least 3 characters long'),
@@ -71,7 +69,7 @@ class ScreenTwo extends HookWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10),
                           child: TextFormField(
-                            onSaved: (val) => _age.value = val,
+                            onSaved: (val) => _userData.age = int.parse(val),
                             validator: MinLengthValidator(1,
                                 errorText: 'You Must add an Age'),
                             decoration: InputDecoration(
@@ -80,31 +78,9 @@ class ScreenTwo extends HookWidget {
                             ),
                           ),
                         ),
-                        DropdownButton<String>(
-                          value: _gender.value == '' ? null : _gender.value,
-                          hint: Text('Gender'),
-                          icon: Container(),
-                          isExpanded: true,
-                          elevation: 16,
-                          style: TextStyle(color: Colors.deepPurple),
-                          underline: Container(
-                            height: 2,
-                            color: Colors.deepPurpleAccent,
-                          ),
-                          onChanged: (val) => _gender.value = val,
-                          items: <String>[
-                            'Male',
-                            'Female',
-                          ].map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(
-                                value,
-                                style: TextStyle(fontSize: 18),
-                              ),
-                            );
-                          }).toList(),
-                        ),
+                        DropDownListComponent(
+                          onChanged: (val) => _userData.gender = val,
+                        )
                       ],
                     ),
                   ),
@@ -116,13 +92,17 @@ class ScreenTwo extends HookWidget {
                     onPressed: () {
                       if (_screenTwoKey.currentState.validate()) {
                         _screenTwoKey.currentState.save();
-                        _userData.firstName = _firstName.value;
-                        _userData.lastName = _lastName.value;
-                        _userData.age = _age.value;
-                        _userData.gender = _gender.value;
-                        pageController.nextPage(
+
+                        if (_userData.gender == 'Male' ||
+                            _userData.gender == 'Female') {
+                          _data.adduser(_userData);
+                          pageController.nextPage(
                             duration: const Duration(milliseconds: 400),
-                            curve: Curves.linear);
+                            curve: Curves.linear,
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        }
                       }
                     },
                   ),
