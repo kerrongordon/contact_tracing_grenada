@@ -54,7 +54,7 @@ jobs:
       - run: flutter build apk --release
 
   build_web:
-    name: Build Flutter (Android apk)
+    name: Build Flutter (web)
     needs: [flutter_analyze]
     runs-on: ubuntu-latest
     steps:
@@ -70,7 +70,7 @@ jobs:
       - run: flutter build web --release
 
   build_linux:
-    name: Build Flutter (Android apk)
+    name: Build Flutter (linux)
     needs: [flutter_analyze]
     runs-on: ubuntu-latest
     steps:
@@ -83,4 +83,4 @@ jobs:
           channel: "stable"
       - run: flutter pub get
       - run: flutter clean
-      - run: flutter build linx --release
+      - run: flutter build linux --release
