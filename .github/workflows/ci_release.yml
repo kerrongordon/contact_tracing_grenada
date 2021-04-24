@@ -21,7 +21,7 @@ jobs:
       - run: flutter analyze
 
   build_appbundle:
-    name: Build Flutter (Android)
+    name: Build Flutter (Android and web)
     needs: [flutter_analyze]
     runs-on: ubuntu-latest
     steps:
@@ -40,12 +40,6 @@ jobs:
       - run: flutter build appbundle --release
       - run: flutter build apk --release
       - run: flutter build web --release
-      - run: flutter build linux --release
-      - name: Archive Release linux
-        uses: thedoctor0/zip-release@master
-        with:
-          directory: "build/linux/release"
-          filename: "linux-build-${{ steps.get_version.outputs.VERSION }}.zip"
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
@@ -54,7 +48,6 @@ jobs:
           files: |
             build/app/outputs/bundle/release/app-release.aab
             build/app/outputs/flutter-apk/app-release.apk
-            buid/linux/linux-build-${{ steps.get_version.outputs.VERSION }}.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Deploy to GitHub Pages
