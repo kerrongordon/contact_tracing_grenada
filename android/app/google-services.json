@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "464731065514",
+    "project_id": "contact-tracing-grenada",
+    "storage_bucket": "contact-tracing-grenada.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:464731065514:android:66db2236290c41b64154d3",
+        "android_client_info": {
+          "package_name": "com.example.contact_tracing_grenada"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "464731065514-k3ae3445hm036h7s1kiirhet28q0h1n3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDd55DcBH9A0hqPB60nlc3TBY6jM1_amjU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "464731065514-k3ae3445hm036h7s1kiirhet28q0h1n3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

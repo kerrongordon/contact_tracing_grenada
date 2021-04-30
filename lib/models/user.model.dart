@@ -20,4 +20,16 @@ class UserModel {
     this.optionFour = false,
     this.optionFive = false,
   });
+
+  Map<String, dynamic> toJson() => {
+        'firstName': firstName,
+        'lastName': lastName,
+        'age': age,
+        'gender': gender,
+        'optionOne': optionOne,
+        'optionTwo': optionTwo,
+        'optionThree': optionThree,
+        'optionFour': optionFour,
+        'optionFive': optionFive,
+      };
 }
