@@ -1,3 +1,5 @@
+import 'package:contact_tracing_grenada/routes/app-route.dart';
+import 'package:contact_tracing_grenada/routes/routes.dart';
 import 'package:contact_tracing_grenada/screens/wrapper.screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -19,12 +21,14 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.yellow,
+        primarySwatch: Colors.deepPurple,
+        accentColor: Colors.deepPurple,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         scaffoldBackgroundColor: const Color.fromARGB(255, 249, 241, 247),
       ),
       darkTheme: ThemeData.dark(),
-      home: WrapperScreen(),
+      initialRoute: wrapperScreen,
+      onGenerateRoute: AppRoute.generateRoute,
     );
   }
 }

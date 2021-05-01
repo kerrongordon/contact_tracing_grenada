@@ -32,6 +32,8 @@ dependencies:
   cloud_firestore: ^1.0.7
   loop_page_view: ^1.0.11
   firebase_auth: ^1.1.2
+  kgp_ui:
+    path: packages/kgp_ui
 
 dev_dependencies:
   flutter_test:

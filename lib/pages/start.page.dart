@@ -1,8 +1,9 @@
-import 'package:contact_tracing_grenada/pages/user.page.dart';
+import 'package:contact_tracing_grenada/pages/signin.page.dart';
+import 'package:contact_tracing_grenada/routes/routes.dart';
 import 'package:flutter/material.dart';
 
-class FirstTimePage extends StatelessWidget {
-  const FirstTimePage({Key key}) : super(key: key);
+class StartPage extends StatelessWidget {
+  const StartPage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,12 +44,7 @@ class FirstTimePage extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (BuildContext context) => UserPage(),
-          ),
-        ),
+        onPressed: () => Navigator.pushNamed(context, signInPage),
         label: Text('Get Started'),
       ),
     );
