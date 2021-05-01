@@ -1,5 +1,5 @@
 import 'package:contact_tracing_grenada/pages/checkup.page.dart';
-import 'package:contact_tracing_grenada/pages/firsttime.page.dart';
+import 'package:contact_tracing_grenada/pages/start.page.dart';
 import 'package:contact_tracing_grenada/services/auth.service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +12,6 @@ class WrapperScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final _auth = useProvider(authProvider);
-
-    print(_auth.isLogin);
 
     return StreamBuilder(
       stream: _auth.isLogin,
@@ -29,7 +27,7 @@ class WrapperScreen extends HookWidget {
             if (snapshot.hasData) {
               return CheckupPage();
             } else {
-              return FirstTimePage();
+              return StartPage();
             }
             break;
           case ConnectionState.done:

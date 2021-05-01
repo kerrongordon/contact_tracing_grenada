@@ -1,14 +1,22 @@
+import 'package:contact_tracing_grenada/models/question.model.dart';
+
 class UserModel {
+  String gender;
   String firstName;
   String lastName;
-  int age;
-  String gender;
+  String age;
+  String email;
+  String password;
+  QuestionModel questions;
 
   UserModel({
+    this.gender,
     this.firstName,
     this.lastName,
     this.age,
-    this.gender,
+    this.email,
+    this.password,
+    this.questions,
   });
 
   Map<String, dynamic> toJson() => {
@@ -16,5 +24,7 @@ class UserModel {
         'lastName': lastName,
         'age': age,
         'gender': gender,
+        'email': email,
+        'questions': questions,
       };
 }
