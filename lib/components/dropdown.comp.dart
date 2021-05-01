@@ -14,7 +14,7 @@ class DropDownListComponent extends HookWidget {
       icon: Container(),
       isExpanded: true,
       elevation: 16,
-      style: TextStyle(color: Colors.deepPurple),
+      style: TextStyle(color: Colors.black),
       onChanged: (value) {
         gen.value = value;
         onChanged(value);
