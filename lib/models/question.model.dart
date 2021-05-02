@@ -34,8 +34,8 @@ class Question {
   final int id;
   final String question;
   final List<String> list;
-  final int yes;
-  final int no;
+  final bool yes;
+  final bool no;
 
   factory Question.fromJson(Map<String, dynamic> json) => Question(
         id: json["id"],

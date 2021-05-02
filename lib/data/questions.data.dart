@@ -6,24 +6,24 @@ final questionsList = QuestionModel(
       id: 1,
       question: 'Have you travelled in the past 2-14 days?',
       list: [],
-      yes: 2,
-      no: 2,
+      yes: false,
+      no: false,
     ),
     Question(
       id: 2,
       question:
           'Does your country have any positive COVID-19 patients/cases that may be related to a community spread?',
       list: [],
-      yes: 2,
-      no: 2,
+      yes: false,
+      no: false,
     ),
     Question(
       id: 3,
       question:
           'Have you encountered someone who tested positive for COVID-19 in the past 2-14 days?',
       list: [],
-      yes: 2,
-      no: 2,
+      yes: false,
+      no: false,
     ),
     Question(
       id: 4,
@@ -43,8 +43,8 @@ final questionsList = QuestionModel(
         'Nausea',
         'Diarrhea',
       ],
-      yes: 2,
-      no: 2,
+      yes: false,
+      no: false,
     ),
     Question(
       id: 5,
@@ -57,8 +57,8 @@ final questionsList = QuestionModel(
         'Inability to wake or stay awake',
         'Pale, Gray, or blue-coloured skin, lips, or nail beds, depending on skin tone',
       ],
-      yes: 2,
-      no: 2,
+      yes: false,
+      no: false,
     ),
   ],
 );
