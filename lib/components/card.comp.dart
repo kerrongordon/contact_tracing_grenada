@@ -4,12 +4,14 @@ class CardComp extends StatelessWidget {
   final Color color;
   final Color shadowColor;
   final Widget child;
+  final void Function() onTap;
 
   const CardComp({
     Key key,
     this.color,
     this.shadowColor,
     this.child,
+    this.onTap,
   }) : super(key: key);
 
   @override
@@ -24,7 +26,10 @@ class CardComp extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
-      child: child,
+      child: GestureDetector(
+        child: child,
+        onTap: onTap,
+      ),
     );
   }
 }

@@ -64,10 +64,6 @@ class BasePasswordRestAuth extends HookWidget {
     return Scaffold(
       body: BaseScreen(
         title: pageTitle ?? 'Forgot Your Password?',
-        titleColor: Colors.white,
-        brightness: Brightness.dark,
-        backgroundColor: Theme.of(context).accentColor,
-        iconTheme: const IconThemeData(color: Colors.white),
         child: Container(
           padding: const EdgeInsets.all(20),
           child: Form(

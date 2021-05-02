@@ -18,6 +18,8 @@ class SignUpPage extends HookWidget {
       String gender,
       String firstName,
       String lastName,
+      String address,
+      String phoneNumber,
       String age,
       String email,
       String password,
@@ -31,13 +33,16 @@ class SignUpPage extends HookWidget {
               content: const Text('Please Select a Gender'),
             ),
           );
+          return null;
         }
         if (password == passwordCon) {
           registerKey.currentState.save();
           final data = UserModel(
             age: age,
+            address: address,
             email: email,
             firstName: firstName,
+            phoneNumber: phoneNumber,
             gender: gender,
             lastName: lastName,
             password: password,

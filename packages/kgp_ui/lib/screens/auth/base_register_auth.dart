@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:kgp_ui/core/base_address_form_field.dart';
 import 'package:kgp_ui/core/base_email_form_field.dart';
 import 'package:kgp_ui/core/base_name_form_field.dart';
 import 'package:kgp_ui/core/base_number_form_field.dart';
 import 'package:kgp_ui/core/base_password_form_field.dart';
+import 'package:kgp_ui/core/base_phonenumber_form_field.dart';
 import 'package:kgp_ui/validators/lastname-validator.dart';
 
 import '../../components/base_footer_auth.dart';
@@ -24,6 +26,12 @@ class BaseRegisterAuth extends HookWidget {
 
   /// Name Validator using MultiValidator
   final MultiValidator namevalidatorFun;
+
+  /// Address Validator using MultiValidator
+  final MultiValidator addressValidator;
+
+  /// Phone Number Validator using MultiValidator
+  final MultiValidator phoneNumberValidator;
 
   /// Age Validator using MultiValidator
   final MultiValidator agevalidatorFun;
@@ -52,6 +60,8 @@ class BaseRegisterAuth extends HookWidget {
     String gender,
     String firstName,
     String lastName,
+    String address,
+    String phoneNumber,
     String age,
     String email,
     String password,
@@ -66,10 +76,12 @@ class BaseRegisterAuth extends HookWidget {
     this.emailvalidatorFun,
     this.namevalidatorFun,
     this.agevalidatorFun,
+    this.addressValidator,
     this.labelTextpassword,
     this.passwordvalidatorFun,
     this.labelTextpasswordConfrom,
     this.passwordvalidatorConfromFun,
+    this.phoneNumberValidator,
     this.onSignUpBtn,
   }) : super(key: key);
 
@@ -80,6 +92,8 @@ class BaseRegisterAuth extends HookWidget {
     final _gender = useState<String>('');
     final _firstName = useState<String>('');
     final _lastName = useState<String>('');
+    final _address = useState<String>('');
+    final _phoneNumber = useState<String>('');
     final _age = useState<String>('');
     final _email = useState<String>('');
     final _password = useState<String>('');
@@ -88,6 +102,8 @@ class BaseRegisterAuth extends HookWidget {
 
     final _fnameFoce = useFocusNode();
     final _lnameFoce = useFocusNode();
+    final _addressFoce = useFocusNode();
+    final _phoneNumberFoce = useFocusNode();
     final _ageFoce = useFocusNode();
     final _emailFoce = useFocusNode();
     final _passwordFoce = useFocusNode();
@@ -97,10 +113,6 @@ class BaseRegisterAuth extends HookWidget {
     return Scaffold(
       body: BaseScreen(
         title: pageTitle ?? 'Register',
-        titleColor: Colors.white,
-        brightness: Brightness.dark,
-        backgroundColor: Theme.of(context).accentColor,
-        iconTheme: const IconThemeData(color: Colors.white),
         child: Container(
           padding: const EdgeInsets.all(20),
           margin: const EdgeInsets.only(top: 50),
@@ -126,6 +138,22 @@ class BaseRegisterAuth extends HookWidget {
                   onSaved: (val) => _lastName.value = val,
                   onChanged: (val) => _lastName.value = val,
                   focusNode: _lnameFoce,
+                  nextFocusNode: _addressFoce,
+                ),
+                BaseAddressFormField(
+                  labelTextname: labelTextemail,
+                  namevalidatorFun: addressValidator,
+                  onSaved: (val) => _address.value = val,
+                  onChanged: (val) => _address.value = val,
+                  focusNode: _addressFoce,
+                  nextFocusNode: _phoneNumberFoce,
+                ),
+                BasePhoneNumberFormField(
+                  labelTextname: labelTextemail,
+                  namevalidatorFun: phoneNumberValidator,
+                  onSaved: (val) => _phoneNumber.value = val,
+                  onChanged: (val) => _phoneNumber.value = val,
+                  focusNode: _phoneNumberFoce,
                   nextFocusNode: _ageFoce,
                 ),
                 BaseNumberFormField(
@@ -176,6 +204,8 @@ class BaseRegisterAuth extends HookWidget {
                         gender: _gender.value,
                         firstName: _firstName.value,
                         lastName: _lastName.value,
+                        address: _address.value,
+                        phoneNumber: _phoneNumber.value,
                         age: _age.value,
                         email: _email.value,
                         password: _password.value,

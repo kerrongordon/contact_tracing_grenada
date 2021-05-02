@@ -15,7 +15,11 @@ class AuthService {
     UserCredential user = await _auth.createUserWithEmailAndPassword(
         email: data.email, password: data.password);
 
-    await db.collection(user.user.uid).add(data.toJson());
+    await db
+        .collection('users')
+        .doc(user.user.uid)
+        .collection('profile')
+        .add(data.toJson());
     await signIn(email: data.email, password: data.password);
     return user.user;
   }
