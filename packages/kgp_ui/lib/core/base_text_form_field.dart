@@ -54,7 +54,7 @@ class BaseTextFormField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 4, bottom: 4),
       child: Stack(
-        clipBehavior: Clip.antiAlias,
+        clipBehavior: Clip.none,
         children: <Widget>[
           Positioned(
             top: -3.9,
@@ -90,7 +90,7 @@ class BaseTextFormField extends StatelessWidget {
             onFieldSubmitted: onFieldSubmitted,
             decoration: InputDecoration(
               labelText: labelText,
-              floatingLabelBehavior: FloatingLabelBehavior.never,
+              floatingLabelBehavior: FloatingLabelBehavior.auto,
               filled: true,
               helperText: ' ',
               prefixIcon: prefixIcon,

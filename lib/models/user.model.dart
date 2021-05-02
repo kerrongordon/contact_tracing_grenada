@@ -4,6 +4,8 @@ class UserModel {
   String gender;
   String firstName;
   String lastName;
+  String address;
+  String phoneNumber;
   String age;
   String email;
   String password;
@@ -13,6 +15,8 @@ class UserModel {
     this.gender,
     this.firstName,
     this.lastName,
+    this.address,
+    this.phoneNumber,
     this.age,
     this.email,
     this.password,
@@ -25,6 +29,8 @@ class UserModel {
         'age': age,
         'gender': gender,
         'email': email,
+        'address': address,
+        'phoneNumber': phoneNumber,
         'questions': questions,
       };
 }

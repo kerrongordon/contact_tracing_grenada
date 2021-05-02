@@ -91,10 +91,6 @@ class BaseLoginAuth extends HookWidget {
     return Scaffold(
       body: BaseScreen(
         title: pageTitle ?? 'Sign In',
-        titleColor: Colors.white,
-        brightness: Brightness.dark,
-        backgroundColor: Theme.of(context).accentColor,
-        iconTheme: const IconThemeData(color: Colors.white),
         child: Container(
           padding: const EdgeInsets.all(20),
           margin: const EdgeInsets.only(top: 50),

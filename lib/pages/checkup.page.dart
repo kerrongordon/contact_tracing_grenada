@@ -1,5 +1,6 @@
 import 'package:contact_tracing_grenada/components/card.comp.dart';
 import 'package:contact_tracing_grenada/pages/base.page.dart';
+import 'package:contact_tracing_grenada/routes/routes.dart';
 import 'package:contact_tracing_grenada/services/auth.service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -95,8 +96,11 @@ class CheckupPage extends HookWidget {
                   ),
                 ),
                 CardComp(
-                  color: Colors.deepPurple,
-                  shadowColor: Colors.deepPurple,
+                  onTap: () {
+                    Navigator.pushNamed(context, questionScreen);
+                  },
+                  color: Colors.blue,
+                  shadowColor: Colors.blue,
                   child: Padding(
                     padding: const EdgeInsets.all(5.0),
                     child: ListTile(
@@ -118,16 +122,13 @@ class CheckupPage extends HookWidget {
                           color: Colors.white,
                         ),
                       ),
-                      trailing: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => BasePage(),
-                            ),
-                          );
-                        },
-                        child: Text('Start'),
+                      trailing: const Text(
+                        'Start',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
                       ),
                     ),
                   ),
