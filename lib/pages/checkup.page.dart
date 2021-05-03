@@ -1,6 +1,9 @@
 import 'package:contact_tracing_grenada/components/card.comp.dart';
+import 'package:contact_tracing_grenada/components/historylist.comp.dart';
+import 'package:contact_tracing_grenada/models/question.model.dart';
 import 'package:contact_tracing_grenada/routes/routes.dart';
 import 'package:contact_tracing_grenada/services/auth.service.dart';
+import 'package:contact_tracing_grenada/services/infor.service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -14,10 +17,10 @@ class CheckupPage extends HookWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Checkups'),
+        title: Text('Dashboard'),
         centerTitle: true,
         actions: [
-          IconButton(icon: Icon(Icons.logout), onPressed: () => _auth.logout())
+          IconButton(icon: Icon(Icons.logout), onPressed: () => _auth.logout()),
         ],
       ),
       body: SingleChildScrollView(
@@ -27,77 +30,20 @@ class CheckupPage extends HookWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CardComp(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      top: 20,
-                      left: 20,
-                      right: 20,
-                      bottom: 10,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            CircleAvatar(
-                              minRadius: 25,
-                              child: const Icon(
-                                Icons.assignment,
-                                size: 30,
-                              ),
-                              backgroundColor: Colors.teal[400],
-                              foregroundColor: Colors.white,
-                            ),
-                            const SizedBox(width: 10),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'No Test Needed',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20,
-                                  ),
-                                ),
-                                Text('March 1, 2021'),
-                              ],
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 20),
-                        Text(
-                          'Today\'s Checkup Results',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
-                        ),
-                        const SizedBox(height: 7),
-                        Text(
-                            'Based on your responses from the survey below you do not qualify for a test. Please check back daily.'),
-                        TextButton.icon(
-                          onPressed: () {},
-                          icon: const Text(
-                            'View Details',
-                            style: TextStyle(
-                              color: Colors.grey,
-                            ),
-                          ),
-                          label: const Icon(
-                            Icons.keyboard_arrow_right_rounded,
-                            size: 18,
-                            color: Colors.grey,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                StreamBuilder(
+                  stream: _auth.lastOneAnwser(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<QuestionModel>> snapshot) {
+                    if (snapshot.hasData) {
+                      final data = snapshot.data[0];
+                      return buildOutPutMessage(data);
+                    } else {
+                      return Container();
+                    }
+                  },
                 ),
                 CardComp(
-                  onTap: () {
-                    Navigator.pushNamed(context, questionScreen);
-                  },
+                  onTap: () => Navigator.pushNamed(context, questionScreen),
                   color: Colors.blue,
                   shadowColor: Colors.blue,
                   child: Padding(
@@ -132,82 +78,15 @@ class CheckupPage extends HookWidget {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 10,
-                  ),
-                  child: Text(
-                    'History',
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                CardComp(
-                  child: Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: ListTile(
-                      leading: const Icon(
-                        Icons.favorite_rounded,
-                        size: 40,
-                        color: Colors.blue,
-                      ),
-                      title: const Text(
-                        'New Checkup',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      subtitle: const Text('Self report symptoms'),
-                      trailing: Icon(Icons.keyboard_arrow_right_rounded),
-                    ),
-                  ),
-                ),
-                CardComp(
-                  child: Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: ListTile(
-                      leading: const Icon(
-                        Icons.favorite_rounded,
-                        size: 40,
-                        color: Colors.blue,
-                      ),
-                      title: const Text(
-                        'New Checkup',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      subtitle: const Text('Self report symptoms'),
-                      trailing: Icon(Icons.keyboard_arrow_right_rounded),
-                    ),
-                  ),
-                ),
-                CardComp(
-                  child: Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: ListTile(
-                      leading: const Icon(
-                        Icons.favorite_rounded,
-                        size: 40,
-                        color: Colors.blue,
-                      ),
-                      title: const Text(
-                        'New Checkup',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      subtitle: const Text('Self report symptoms'),
-                      trailing: Icon(Icons.keyboard_arrow_right_rounded),
-                    ),
-                  ),
-                ),
+                const HistoryListComp(),
               ],
             ),
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.pushNamed(context, questionScreen),
+        child: Icon(Icons.add),
       ),
     );
   }

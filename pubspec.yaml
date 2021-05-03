@@ -35,6 +35,8 @@ dependencies:
   kgp_ui:
     path: packages/kgp_ui
   flutter_rounded_progress_bar: ^0.2.0
+  intl: ^0.17.0
+  time_formatter: ^1.0.0+5
 
 dev_dependencies:
   flutter_test:

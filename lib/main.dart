@@ -1,6 +1,5 @@
 import 'package:contact_tracing_grenada/routes/app-route.dart';
 import 'package:contact_tracing_grenada/routes/routes.dart';
-import 'package:contact_tracing_grenada/screens/wrapper.screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,6 +22,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
         accentColor: Colors.deepPurple,
+        appBarTheme: AppBarTheme(
+          brightness: Brightness.dark,
+        ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
         scaffoldBackgroundColor: const Color.fromARGB(255, 249, 241, 247),
       ),

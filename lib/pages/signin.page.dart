@@ -1,7 +1,4 @@
-import 'package:contact_tracing_grenada/pages/password.rest.page.dart';
-import 'package:contact_tracing_grenada/pages/signup.page.dart';
 import 'package:contact_tracing_grenada/routes/routes.dart';
-import 'package:contact_tracing_grenada/screens/wrapper.screen.dart';
 import 'package:contact_tracing_grenada/services/auth.service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
