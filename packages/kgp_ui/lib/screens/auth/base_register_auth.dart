@@ -184,7 +184,8 @@ class BaseRegisterAuth extends HookWidget {
                   nextFocusNode: _passwordConFoce,
                 ),
                 BasePasswordFormField(
-                  labelTextpassword: labelTextpasswordConfrom,
+                  labelTextpassword:
+                      labelTextpasswordConfrom ?? 'Password Confirmation',
                   passwordvalidatorFun: (val) =>
                       passwordCon(val, _passwordOnChange.value),
                   onSaved: (val) => _passwordCon.value = val,

@@ -17,12 +17,13 @@ Widget buildOutPutMessage(QuestionModel data) {
       subTitle: 'Please Contact Your Health Care Provider',
       date: formatTimestamp(data.timestamp),
       content:
-          'There is an high chance you are a carrier of SARS-CoV-2, popularly known as COVID-19.\n \nUpon confirmation please self-quarantine for 14 days, then go to your local testing site and get tested or call the COVID-19 hotline @ (473)-438-4787 or (473) 538-4787. \n \n Thank you for using our app!',
+          'There is a high chance you are a carrier of SARS-CoV-2, popularly known as COVID-19.\n \nUpon confirmation please self-quarantine for 14 days, then go to your local testing site and get tested or call the COVID-19 hotline @ (473)-438-4787 or (473) 538-4787. \n \n Thank you for using our app!',
     );
   } else {
     return InforCardComp(
       title: 'Monitor Your Symptoms',
-      subTitle: 'You probably catching the cold',
+      subTitle:
+          'Don\'t be alarmed you may have contracted a non covid 19 illness',
       date: formatTimestamp(data.timestamp),
       content:
           'You are most likely catching the common cold and should rest and drink heavy fluids.\n \nHowever, to be certain, contact the COVID-19 hotline @ (473)-438-4787 or (473) 538-4787. \n \n Thank you for using our app!',
