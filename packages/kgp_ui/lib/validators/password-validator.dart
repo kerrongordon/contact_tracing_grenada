@@ -3,6 +3,7 @@ import 'package:form_field_validator/form_field_validator.dart';
 
 final passwordValidator = MultiValidator([
   RequiredValidator(errorText: 'Password is required'),
+
   MinLengthValidator(6,
       errorText: 'Password must be at least 6 character long'),
   // ignore: unnecessary_raw_strings
