@@ -15,6 +15,7 @@ class HistoryListComp extends HookWidget {
 
     return StreamBuilder(
       stream: _auth.allAnwser(),
+      initialData: <QuestionModel>[],
       builder: (BuildContext context,
           AsyncSnapshot<List<QuestionModel>> allQuestion) {
         switch (allQuestion.connectionState) {

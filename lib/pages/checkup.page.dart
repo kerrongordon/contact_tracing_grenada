@@ -32,9 +32,13 @@ class CheckupPage extends HookWidget {
               children: [
                 StreamBuilder(
                   stream: _auth.lastOneAnwser(),
+                  initialData: <QuestionModel>[],
                   builder: (BuildContext context,
                       AsyncSnapshot<List<QuestionModel>> snapshot) {
                     if (snapshot.hasData) {
+                      if (snapshot.data.isEmpty) {
+                        return Container();
+                      }
                       final data = snapshot.data[0];
                       return buildOutPutMessage(data);
                     } else {
