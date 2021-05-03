@@ -22,6 +22,11 @@ class PasswordRestPage extends HookWidget {
         try {
           await _auth.restPassword(email: email);
           resetKey.currentState.reset();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Please Check Your Email'),
+            ),
+          );
           Navigator.pop(context);
         } on FirebaseAuthException catch (e) {
           ScaffoldMessenger.of(context).showSnackBar(
