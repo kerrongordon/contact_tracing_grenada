@@ -1,35 +1,63 @@
 import 'package:contact_tracing_grenada/components/card.comp.dart';
 import 'package:contact_tracing_grenada/data/questions.data.dart';
 import 'package:contact_tracing_grenada/models/question.model.dart';
+import 'package:contact_tracing_grenada/services/auth.service.dart';
+import 'package:contact_tracing_grenada/services/data.service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_rounded_progress_bar/flutter_rounded_progress_bar.dart';
 import 'package:flutter_rounded_progress_bar/rounded_progress_bar_style.dart';
+import 'package:form_field_validator/form_field_validator.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:kgp_ui/kgp_ui.dart';
 
 class QuestionScreen extends HookWidget {
   QuestionScreen({Key key}) : super(key: key);
 
+  final _anwserKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     final count = useState(0);
+    final longan = useState('');
     final tab = useTabController(initialLength: 1);
+    final questionPush = useProvider(questionProvider);
+    final auth = useProvider(authProvider);
     final Question questionItem = questionsList.questions[count.value];
     final pageCount = count.value + 1;
 
-    print(pageCount / questionsList.questions.length * 100);
-    print(questionsList.questions.length);
-    print(pageCount);
+    void _saveItem({String type}) async {
+      if (pageCount == questionsList.questions.length) {
+        questionItem.answer = type;
+        questionPush.addQuestion(questionItem);
+        print(questionPush.question);
+        try {
+          await auth.saveAnwser(QuestionModel(
+            timestamp: DateTime.now().millisecondsSinceEpoch,
+            questions: questionPush.question,
+          ));
+        } catch (e) {
+          print(e);
+        }
+        return Navigator.pop(context);
+      }
+      if (pageCount <= questionsList.questions.length) {
+        questionItem.answer = type;
+        questionPush.addQuestion(questionItem);
+        print(questionPush.question);
+        count.value++;
+      }
+    }
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('COVID-19 Survey App'),
+        title: Text('Self Checkup'),
         centerTitle: true,
         bottom: TabBar(
           controller: tab,
           tabs: [
             RoundedProgressBar(
-              height: 15,
-              // theme: RoundedProgressBarTheme.yellow,
+              height: 18,
               style: RoundedProgressBarStyle(
                 borderWidth: 0,
                 widthShadow: 0,
@@ -84,60 +112,82 @@ class QuestionScreen extends HookWidget {
                       ),
                     ),
                   ),
+                  questionItem.yesno
+                      ? CardComp(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 20),
+                            child: Container(
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  ElevatedButton(
+                                    onPressed: () => _saveItem(type: 'yes'),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Text(
+                                        'Yes',
+                                      ),
+                                    ),
+                                  ),
+                                  ElevatedButton(
+                                    onPressed: () => _saveItem(type: 'no'),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Text(
+                                        'No ',
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        )
+                      : Container(),
+                  questionItem.longanswer
+                      ? Form(
+                          key: _anwserKey,
+                          child: CardComp(
+                            child: Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Column(
+                                children: [
+                                  BaseTextFormField(
+                                    prefixIcon: Icon(Icons.addchart_rounded),
+                                    keyboardType: TextInputType.text,
+                                    labelText: 'Answer',
+                                    validator: answerValidator,
+                                    onChanged: (val) => longan.value = val,
+                                  ),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      if (_anwserKey.currentState.validate()) {
+                                        _anwserKey.currentState.save();
+                                        _saveItem(type: longan.value);
+                                        longan.value = '';
+                                        _anwserKey.currentState.reset();
+                                      }
+                                    },
+                                    child: Text('Submit'),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        )
+                      : Container()
                 ],
               ),
             ),
           ),
         ),
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20),
-        child: Container(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  if (count.value <= questionsList.questions.length - 1) {
-                    if (count.value == questionsList.questions.length) {
-                      return count.value = 0;
-                    }
-                    count.value++;
-                  }
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Text(
-                    'Yes',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25,
-                    ),
-                  ),
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  if (count.value <= questionsList.questions.length - 1) {
-                    count.value--;
-                  }
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Text(
-                    'No ',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
     );
   }
 }
+
+final answerValidator = MultiValidator([
+  RequiredValidator(errorText: 'Your Answer is required'),
+]);
