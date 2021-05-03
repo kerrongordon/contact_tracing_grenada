@@ -4,5 +4,6 @@ final pageCount = Provider.autoDispose<TabNotifier>((_) => TabNotifier());
 
 class TabNotifier extends StateNotifier<int> {
   TabNotifier() : super(0);
+  int get index => state;
   void changePages(int number) => state = number;
 }

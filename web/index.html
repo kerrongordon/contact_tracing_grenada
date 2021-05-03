@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <!--
     If you are serving your web app in a path other than the root, change the
@@ -24,11 +25,13 @@
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
+  <link rel="icon" type="image/png" href="favicon.png" />
 
   <title>contact_tracing_grenada</title>
   <link rel="manifest" href="manifest.json">
+
 </head>
+
 <body>
   <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
@@ -40,6 +43,34 @@
       });
     }
   </script>
+
+  <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-app.js"></script>
+
+  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+  <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-analytics.js"></script>
+
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-firestore.js"></script>
+  <script>
+    var firebaseConfig = {
+      apiKey: "AIzaSyAd6J5HDXGdOFo8letCyedfklO1TsnWSvA",
+      authDomain: "contact-tracing-grenada.firebaseapp.com",
+      projectId: "contact-tracing-grenada",
+      storageBucket: "contact-tracing-grenada.appspot.com",
+      messagingSenderId: "464731065514",
+      appId: "1:464731065514:web:6ec237d4baaf73fa4154d3",
+      measurementId: "G-GWN0F4GG8J"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+  </script>
   <script src="main.dart.js" type="application/javascript"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-firestore.js"></script>
 </body>
+
 </html>

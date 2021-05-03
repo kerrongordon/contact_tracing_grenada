@@ -1,18 +1,19 @@
-import 'package:contact_tracing_grenada/models/user.model.dart';
+import 'package:contact_tracing_grenada/models/question.model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final userData = Provider.autoDispose((_) => UserModel());
+final questionProvider = Provider.autoDispose((_) => QuestionData());
 
-final dataService = Provider.autoDispose<UserData>((_) => UserData());
+class QuestionData extends StateNotifier<QuestionModel> {
+  QuestionData() : super(QuestionModel());
+  final List<Question> _items = [];
 
-class UserData extends StateNotifier<UserModel> {
-  UserData() : super(UserModel());
+  List<Question> get question => _items;
 
-  UserModel _user;
-
-  UserModel get user => _user;
-
-  UserModel adduser(UserModel user) {
-    return _user;
+  QuestionModel addQuestion(Question question) {
+    _items.add(question);
+    return QuestionModel(
+      timestamp: DateTime.now().millisecondsSinceEpoch,
+      questions: _items,
+    );
   }
 }
