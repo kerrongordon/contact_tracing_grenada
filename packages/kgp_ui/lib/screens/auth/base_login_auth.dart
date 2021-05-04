@@ -96,76 +96,83 @@ class BaseLoginAuth extends HookWidget {
           margin: const EdgeInsets.only(top: 50),
           child: Form(
             key: _loginKey,
-            child: Column(
-              children: [
-                BaseEmailFormField(
-                  labelTextemail: labelTextemail,
-                  emailvalidatorFun: emailvalidatorFun,
-                  onSaved: (val) => _email.value = val,
-                  onChanged: (val) => _email.value = val,
-                  focusNode: _emailFoce,
-                  nextFocusNode: _passwordFoce,
-                ),
-                BasePasswordFormField(
-                  labelTextpassword: labelTextpassword,
-                  passwordvalidatorFun: passwordvalidatorFun,
-                  onSaved: (val) => _password.value = val,
-                  onChanged: (val) => _password.value = val,
-                  focusNode: _passwordFoce,
-                  nextFocusNode: _submitFoce,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Center(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: 400),
+                child: Column(
                   children: [
-                    Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Row(
-                        children: [
-                          Switch(
-                            onChanged: (val) => _rememberMe.value = val,
-                            value: _rememberMe.value,
+                    BaseEmailFormField(
+                      labelTextemail: labelTextemail,
+                      emailvalidatorFun: emailvalidatorFun,
+                      onSaved: (val) => _email.value = val,
+                      onChanged: (val) => _email.value = val,
+                      focusNode: _emailFoce,
+                      nextFocusNode: _passwordFoce,
+                    ),
+                    BasePasswordFormField(
+                      labelTextpassword: labelTextpassword,
+                      passwordvalidatorFun: passwordvalidatorFun,
+                      onSaved: (val) => _password.value = val,
+                      onChanged: (val) => _password.value = val,
+                      focusNode: _passwordFoce,
+                      nextFocusNode: _submitFoce,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Align(
+                          alignment: Alignment.bottomLeft,
+                          child: Row(
+                            children: [
+                              Switch(
+                                onChanged: (val) => _rememberMe.value = val,
+                                value: _rememberMe.value,
+                              ),
+                              TextButton(
+                                onPressed: () =>
+                                    _rememberMe.value = !_rememberMe.value,
+                                child:
+                                    Text(labelTextRememberMe ?? 'Remember Me'),
+                              ),
+                            ],
                           ),
-                          TextButton(
-                            onPressed: () =>
-                                _rememberMe.value = !_rememberMe.value,
-                            child: Text(labelTextRememberMe ?? 'Remember Me'),
+                        ),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: TextButton(
+                            onPressed: passwordResetBtn,
+                            child: Text(
+                                labelTextForgotPassword ?? 'Forgot Password?'),
                           ),
-                        ],
+                        ),
+                      ],
+                    ),
+                    Builder(
+                      builder: (BuildContext context) => Padding(
+                        padding: const EdgeInsets.only(top: 60, bottom: 30),
+                        child: ElevatedButton.icon(
+                          focusNode: _submitFoce,
+                          icon: const Icon(Icons.vpn_key),
+                          label: Text(labelTextSignIn ?? 'Sign In'),
+                          onPressed: () => onSignInBtn(
+                            loginKey: _loginKey,
+                            email: _email.value,
+                            password: _password.value,
+                            rememberMe: _rememberMe.value,
+                            context: context,
+                          ),
+                        ),
                       ),
                     ),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: TextButton(
-                        onPressed: passwordResetBtn,
-                        child:
-                            Text(labelTextForgotPassword ?? 'Forgot Password?'),
-                      ),
+                    FooterAuth(
+                      action: labelTextRegister ?? 'Register',
+                      detail:
+                          labelTextRegisterdetail ?? "Don't Have an Account?",
+                      onTap: registerBtn,
                     ),
                   ],
                 ),
-                Builder(
-                  builder: (BuildContext context) => Padding(
-                    padding: const EdgeInsets.only(top: 60, bottom: 30),
-                    child: ElevatedButton.icon(
-                      focusNode: _submitFoce,
-                      icon: const Icon(Icons.vpn_key),
-                      label: Text(labelTextSignIn ?? 'Sign In'),
-                      onPressed: () => onSignInBtn(
-                        loginKey: _loginKey,
-                        email: _email.value,
-                        password: _password.value,
-                        rememberMe: _rememberMe.value,
-                        context: context,
-                      ),
-                    ),
-                  ),
-                ),
-                FooterAuth(
-                  action: labelTextRegister ?? 'Register',
-                  detail: labelTextRegisterdetail ?? "Don't Have an Account?",
-                  onTap: registerBtn,
-                ),
-              ],
+              ),
             ),
           ),
         ),

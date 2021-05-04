@@ -17,6 +17,7 @@ class CardComp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      clipBehavior: Clip.antiAlias,
       margin: const EdgeInsets.symmetric(
         vertical: 10,
       ),

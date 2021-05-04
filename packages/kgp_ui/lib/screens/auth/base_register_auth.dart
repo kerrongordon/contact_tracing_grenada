@@ -118,110 +118,115 @@ class BaseRegisterAuth extends HookWidget {
           margin: const EdgeInsets.only(top: 50),
           child: Form(
             key: _registerKey,
-            child: Column(
-              children: [
-                BaseDropdownButton(
-                  icon: const Icon(Icons.person),
-                  onChanged: (val) => _gender.value = val,
+            child: Center(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: 400),
+                child: Column(
+                  children: [
+                    BaseDropdownButton(
+                      icon: const Icon(Icons.person),
+                      onChanged: (val) => _gender.value = val,
+                    ),
+                    BaseNameFormField(
+                      labelTextname: labelTextemail ?? 'First Name',
+                      namevalidatorFun: namevalidatorFun,
+                      onSaved: (val) => _firstName.value = val,
+                      onChanged: (val) => _firstName.value = val,
+                      focusNode: _fnameFoce,
+                      nextFocusNode: _lnameFoce,
+                    ),
+                    BaseNameFormField(
+                      labelTextname: labelTextemail ?? 'Last Name',
+                      namevalidatorFun: lastnameValidator,
+                      onSaved: (val) => _lastName.value = val,
+                      onChanged: (val) => _lastName.value = val,
+                      focusNode: _lnameFoce,
+                      nextFocusNode: _addressFoce,
+                    ),
+                    BaseAddressFormField(
+                      labelTextname: labelTextemail,
+                      namevalidatorFun: addressValidator,
+                      onSaved: (val) => _address.value = val,
+                      onChanged: (val) => _address.value = val,
+                      focusNode: _addressFoce,
+                      nextFocusNode: _phoneNumberFoce,
+                    ),
+                    BasePhoneNumberFormField(
+                      labelTextname: labelTextemail,
+                      namevalidatorFun: phoneNumberValidator,
+                      onSaved: (val) => _phoneNumber.value = val,
+                      onChanged: (val) => _phoneNumber.value = val,
+                      focusNode: _phoneNumberFoce,
+                      nextFocusNode: _ageFoce,
+                    ),
+                    BaseNumberFormField(
+                      labelTextname: labelTextemail,
+                      namevalidatorFun: agevalidatorFun,
+                      onSaved: (val) => _age.value = val,
+                      onChanged: (val) => _age.value = val,
+                      focusNode: _ageFoce,
+                      nextFocusNode: _emailFoce,
+                    ),
+                    BaseEmailFormField(
+                      labelTextemail: labelTextemail,
+                      emailvalidatorFun: emailvalidatorFun,
+                      onSaved: (val) => _email.value = val,
+                      onChanged: (val) => _email.value = val,
+                      focusNode: _emailFoce,
+                      nextFocusNode: _passwordFoce,
+                    ),
+                    BasePasswordFormField(
+                      labelTextpassword: labelTextpassword,
+                      passwordvalidatorFun: passwordvalidatorFun,
+                      onSaved: (val) => _password.value = val,
+                      onChanged: (val) {
+                        _password.value = val;
+                        _passwordOnChange.value = val;
+                      },
+                      focusNode: _passwordFoce,
+                      nextFocusNode: _passwordConFoce,
+                    ),
+                    BasePasswordFormField(
+                      labelTextpassword:
+                          labelTextpasswordConfrom ?? 'Password Confirmation',
+                      passwordvalidatorFun: (val) =>
+                          passwordCon(val, _passwordOnChange.value),
+                      onSaved: (val) => _passwordCon.value = val,
+                      onChanged: (val) => _passwordCon.value = val,
+                      focusNode: _passwordConFoce,
+                      nextFocusNode: _submitFoce,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 60, bottom: 30),
+                      child: Builder(builder: (BuildContext context) {
+                        return ElevatedButton.icon(
+                          focusNode: _submitFoce,
+                          icon: const Icon(Icons.assignment),
+                          label: const Text('Register'),
+                          onPressed: () => onSignUpBtn(
+                            registerKey: _registerKey,
+                            gender: _gender.value,
+                            firstName: _firstName.value,
+                            lastName: _lastName.value,
+                            address: _address.value,
+                            phoneNumber: _phoneNumber.value,
+                            age: _age.value,
+                            email: _email.value,
+                            password: _password.value,
+                            passwordCon: _passwordCon.value,
+                            context: context,
+                          ),
+                        );
+                      }),
+                    ),
+                    FooterAuth(
+                      action: 'Sign In',
+                      detail: 'Already a member?',
+                      onTap: () => Navigator.pop(context),
+                    ),
+                  ],
                 ),
-                BaseNameFormField(
-                  labelTextname: labelTextemail ?? 'First Name',
-                  namevalidatorFun: namevalidatorFun,
-                  onSaved: (val) => _firstName.value = val,
-                  onChanged: (val) => _firstName.value = val,
-                  focusNode: _fnameFoce,
-                  nextFocusNode: _lnameFoce,
-                ),
-                BaseNameFormField(
-                  labelTextname: labelTextemail ?? 'Last Name',
-                  namevalidatorFun: lastnameValidator,
-                  onSaved: (val) => _lastName.value = val,
-                  onChanged: (val) => _lastName.value = val,
-                  focusNode: _lnameFoce,
-                  nextFocusNode: _addressFoce,
-                ),
-                BaseAddressFormField(
-                  labelTextname: labelTextemail,
-                  namevalidatorFun: addressValidator,
-                  onSaved: (val) => _address.value = val,
-                  onChanged: (val) => _address.value = val,
-                  focusNode: _addressFoce,
-                  nextFocusNode: _phoneNumberFoce,
-                ),
-                BasePhoneNumberFormField(
-                  labelTextname: labelTextemail,
-                  namevalidatorFun: phoneNumberValidator,
-                  onSaved: (val) => _phoneNumber.value = val,
-                  onChanged: (val) => _phoneNumber.value = val,
-                  focusNode: _phoneNumberFoce,
-                  nextFocusNode: _ageFoce,
-                ),
-                BaseNumberFormField(
-                  labelTextname: labelTextemail,
-                  namevalidatorFun: agevalidatorFun,
-                  onSaved: (val) => _age.value = val,
-                  onChanged: (val) => _age.value = val,
-                  focusNode: _ageFoce,
-                  nextFocusNode: _emailFoce,
-                ),
-                BaseEmailFormField(
-                  labelTextemail: labelTextemail,
-                  emailvalidatorFun: emailvalidatorFun,
-                  onSaved: (val) => _email.value = val,
-                  onChanged: (val) => _email.value = val,
-                  focusNode: _emailFoce,
-                  nextFocusNode: _passwordFoce,
-                ),
-                BasePasswordFormField(
-                  labelTextpassword: labelTextpassword,
-                  passwordvalidatorFun: passwordvalidatorFun,
-                  onSaved: (val) => _password.value = val,
-                  onChanged: (val) {
-                    _password.value = val;
-                    _passwordOnChange.value = val;
-                  },
-                  focusNode: _passwordFoce,
-                  nextFocusNode: _passwordConFoce,
-                ),
-                BasePasswordFormField(
-                  labelTextpassword:
-                      labelTextpasswordConfrom ?? 'Password Confirmation',
-                  passwordvalidatorFun: (val) =>
-                      passwordCon(val, _passwordOnChange.value),
-                  onSaved: (val) => _passwordCon.value = val,
-                  onChanged: (val) => _passwordCon.value = val,
-                  focusNode: _passwordConFoce,
-                  nextFocusNode: _submitFoce,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 60, bottom: 30),
-                  child: Builder(builder: (BuildContext context) {
-                    return ElevatedButton.icon(
-                      focusNode: _submitFoce,
-                      icon: const Icon(Icons.assignment),
-                      label: const Text('Register'),
-                      onPressed: () => onSignUpBtn(
-                        registerKey: _registerKey,
-                        gender: _gender.value,
-                        firstName: _firstName.value,
-                        lastName: _lastName.value,
-                        address: _address.value,
-                        phoneNumber: _phoneNumber.value,
-                        age: _age.value,
-                        email: _email.value,
-                        password: _password.value,
-                        passwordCon: _passwordCon.value,
-                        context: context,
-                      ),
-                    );
-                  }),
-                ),
-                FooterAuth(
-                  action: 'Sign In',
-                  detail: 'Already a member?',
-                  onTap: () => Navigator.pop(context),
-                ),
-              ],
+              ),
             ),
           ),
         ),

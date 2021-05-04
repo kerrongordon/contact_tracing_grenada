@@ -1,4 +1,5 @@
 import 'package:contact_tracing_grenada/components/card.comp.dart';
+import 'package:contact_tracing_grenada/core/responsive.dart';
 import 'package:contact_tracing_grenada/data/questions.data.dart';
 import 'package:contact_tracing_grenada/models/question.model.dart';
 import 'package:contact_tracing_grenada/services/auth.service.dart';
@@ -26,7 +27,7 @@ class QuestionScreen extends HookWidget {
     final Question questionItem = questionsList.questions[count.value];
     final pageCount = count.value + 1;
 
-    void _saveItem({String type}) async {
+    void _saveItem(String type) async {
       if (pageCount == questionsList.questions.length) {
         questionItem.answer = type;
         questionPush.addQuestion(questionItem);
@@ -72,114 +73,123 @@ class QuestionScreen extends HookWidget {
           ],
         ),
       ),
-      body: Center(
-        child: SingleChildScrollView(
-          child: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CardComp(
-                    child: Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              questionItem.question,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
-                              textAlign: TextAlign.center,
+      body: Responsive(
+        mobile: _buildQuestion(questionItem, _saveItem, longan),
+        tablet: Center(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: 700),
+            child: _buildQuestion(questionItem, _saveItem, longan),
+          ),
+        ),
+        desktop: Center(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: 800),
+            child: _buildQuestion(questionItem, _saveItem, longan),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Center _buildQuestion(Question questionItem, void Function(String) _saveItem,
+      ValueNotifier<String> longan) {
+    return Center(
+      child: SingleChildScrollView(
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CardComp(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            questionItem.question,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
                             ),
+                            textAlign: TextAlign.center,
                           ),
-                          SizedBox(height: 30),
-                          ListView.separated(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            separatorBuilder: (context, index) => Divider(),
-                            itemCount: questionItem.list.length,
-                            itemBuilder: (context, index) {
-                              return Text(questionItem.list[index]);
-                            },
-                          ),
-                        ],
-                      ),
+                        ),
+                        SizedBox(height: 30),
+                        ListView.separated(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          separatorBuilder: (context, index) => Divider(),
+                          itemCount: questionItem.list.length,
+                          itemBuilder: (context, index) {
+                            return Text(questionItem.list[index]);
+                          },
+                        ),
+                      ],
                     ),
                   ),
-                  questionItem.yesno
-                      ? CardComp(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 20),
-                            child: Container(
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  ElevatedButton(
-                                    onPressed: () => _saveItem(type: 'yes'),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: Text(
-                                        'Yes',
-                                      ),
-                                    ),
-                                  ),
-                                  ElevatedButton(
-                                    onPressed: () => _saveItem(type: 'no'),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: Text(
-                                        'No ',
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                ),
+                const SizedBox(height: 50),
+                questionItem.yesno
+                    ? Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            ElevatedButton(
+                              onPressed: () => _saveItem('yes'),
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Text(
+                                  'Yes',
+                                ),
                               ),
                             ),
-                          ),
-                        )
-                      : Container(),
-                  questionItem.longanswer
-                      ? Form(
-                          key: _anwserKey,
-                          child: CardComp(
-                            child: Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: Column(
-                                children: [
-                                  BaseTextFormField(
-                                    prefixIcon: Icon(Icons.addchart_rounded),
-                                    keyboardType: TextInputType.text,
-                                    labelText: 'Answer',
-                                    validator: answerValidator,
-                                    onChanged: (val) => longan.value = val,
-                                  ),
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      if (_anwserKey.currentState.validate()) {
-                                        _anwserKey.currentState.save();
-                                        _saveItem(type: longan.value);
-                                        longan.value = '';
-                                        _anwserKey.currentState.reset();
-                                      }
-                                    },
-                                    child: Text('Submit'),
-                                  ),
-                                ],
+                            ElevatedButton(
+                              onPressed: () => _saveItem('no'),
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Text(
+                                  'No ',
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
                             ),
-                          ),
-                        )
-                      : Container()
-                ],
-              ),
+                          ],
+                        ),
+                      )
+                    : Container(),
+                questionItem.longanswer
+                    ? Form(
+                        key: _anwserKey,
+                        child: Column(
+                          children: [
+                            BaseTextFormField(
+                              prefixIcon: Icon(Icons.addchart_rounded),
+                              keyboardType: TextInputType.text,
+                              labelText: 'Answer',
+                              validator: answerValidator,
+                              onChanged: (val) => longan.value = val,
+                            ),
+                            ElevatedButton(
+                              onPressed: () {
+                                if (_anwserKey.currentState.validate()) {
+                                  _anwserKey.currentState.save();
+                                  _saveItem(longan.value);
+                                  longan.value = '';
+                                  _anwserKey.currentState.reset();
+                                }
+                              },
+                              child: Text('Submit'),
+                            ),
+                          ],
+                        ),
+                      )
+                    : Container()
+              ],
             ),
           ),
         ),

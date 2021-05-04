@@ -68,54 +68,59 @@ class BasePasswordRestAuth extends HookWidget {
           padding: const EdgeInsets.all(20),
           child: Form(
             key: _resetKey,
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 38,
-                    vertical: 30,
-                  ),
-                  child: Text(
-                    pageSubTitle ??
-                        "Don't worry. Resetting your password is easy, just tell us the email address you registered with.",
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-                BaseTextFormField(
-                  prefixIcon: const Icon(Icons.alternate_email),
-                  keyboardType: TextInputType.emailAddress,
-                  labelText: labelTextemail ?? 'Email address',
-                  validator: emailvalidatorFun ?? emailValidator,
-                  onSaved: (val) => _email.value = val,
-                  onChanged: (val) => _email.value = val,
-                  focusNode: _emailFoce,
-                  onFieldSubmitted: (val) =>
-                      fieldFocusChange(context, _emailFoce, _submitFoce),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 30),
-                  child: Builder(
-                    builder: (BuildContext context) => ElevatedButton.icon(
-                      focusNode: _submitFoce,
-                      icon: const Icon(Icons.send),
-                      label: Text(labelTextSend ?? 'Send'),
-                      onPressed: () => onSendBtn(
-                        resetKey: _resetKey,
-                        email: _email.value,
-                        context: context,
+            child: Center(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: 400),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 38,
+                        vertical: 30,
+                      ),
+                      child: Text(
+                        pageSubTitle ??
+                            "Don't worry. Resetting your password is easy, just tell us the email address you registered with.",
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 16,
+                        ),
                       ),
                     ),
-                  ),
+                    BaseTextFormField(
+                      prefixIcon: const Icon(Icons.alternate_email),
+                      keyboardType: TextInputType.emailAddress,
+                      labelText: labelTextemail ?? 'Email address',
+                      validator: emailvalidatorFun ?? emailValidator,
+                      onSaved: (val) => _email.value = val,
+                      onChanged: (val) => _email.value = val,
+                      focusNode: _emailFoce,
+                      onFieldSubmitted: (val) =>
+                          fieldFocusChange(context, _emailFoce, _submitFoce),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 30),
+                      child: Builder(
+                        builder: (BuildContext context) => ElevatedButton.icon(
+                          focusNode: _submitFoce,
+                          icon: const Icon(Icons.send),
+                          label: Text(labelTextSend ?? 'Send'),
+                          onPressed: () => onSendBtn(
+                            resetKey: _resetKey,
+                            email: _email.value,
+                            context: context,
+                          ),
+                        ),
+                      ),
+                    ),
+                    FooterAuth(
+                      action: labelTextSignIn ?? 'Sign In',
+                      detail: labelTextSignIndetail ?? 'Rmember your Password?',
+                      onTap: () => Navigator.pop(context),
+                    ),
+                  ],
                 ),
-                FooterAuth(
-                  action: labelTextSignIn ?? 'Sign In',
-                  detail: labelTextSignIndetail ?? 'Rmember your Password?',
-                  onTap: () => Navigator.pop(context),
-                ),
-              ],
+              ),
             ),
           ),
         ),

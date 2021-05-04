@@ -6,6 +6,7 @@ import 'package:contact_tracing_grenada/pages/signin.page.dart';
 import 'package:contact_tracing_grenada/pages/signup.page.dart';
 import 'package:contact_tracing_grenada/pages/start.page.dart';
 import 'package:contact_tracing_grenada/routes/routes.dart';
+import 'package:contact_tracing_grenada/screens/loadfirebase.screen.dart';
 import 'package:contact_tracing_grenada/screens/question.screen.dart';
 import 'package:contact_tracing_grenada/screens/wrapper.screen.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,9 @@ class AppRoute {
     switch (settings.name) {
       case wrapperScreen:
         return MaterialPageRoute(builder: (context) => const WrapperScreen());
+      case loadFirebaseScreen:
+        return MaterialPageRoute(
+            builder: (context) => const LoadFirebaseScreen());
       case startPage:
         return MaterialPageRoute(builder: (context) => const StartPage());
       case signUpPage:
@@ -34,7 +38,8 @@ class AppRoute {
             ? MaterialPageRoute(builder: (context) => AnwserPage(data: args))
             : MaterialPageRoute(builder: (context) => const WrapperScreen());
       default:
-        return MaterialPageRoute(builder: (context) => const WrapperScreen());
+        return MaterialPageRoute(
+            builder: (context) => const LoadFirebaseScreen());
     }
   }
 }

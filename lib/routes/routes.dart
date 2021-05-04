@@ -6,3 +6,4 @@ const String passwordRestPage = 'passwordrest-page';
 const String dashboardPage = 'dashboard-page';
 const String questionScreen = 'question-screen';
 const String anwserPage = 'Anwser-page';
+const String loadFirebaseScreen = 'load-firebase-screen';

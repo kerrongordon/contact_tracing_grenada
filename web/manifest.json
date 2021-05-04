@@ -1,6 +1,6 @@
 {
     "name": "Covid19 Pre-Diagnosis",
-    "short_name": "Covid19 Pre-Diagnosis",
+    "short_name": "Pre-Diagnosis",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#f7ff33",
