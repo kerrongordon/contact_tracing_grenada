@@ -46,14 +46,16 @@ class CheckupPage extends HookWidget {
               children: [
                 Expanded(
                   flex: 1,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Column(
-                      children: [
-                        const SizedBox(height: 20),
-                        const CheckupButtonComp(),
-                        const StatusComp(),
-                      ],
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 20),
+                          const CheckupButtonComp(),
+                          const StatusComp(),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -73,14 +75,16 @@ class CheckupPage extends HookWidget {
                 children: [
                   Expanded(
                     flex: 5,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Column(
-                        children: [
-                          const SizedBox(height: 20),
-                          const CheckupButtonComp(),
-                          const StatusComp(),
-                        ],
+                    child: SingleChildScrollView(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Column(
+                          children: [
+                            const SizedBox(height: 20),
+                            const CheckupButtonComp(),
+                            const StatusComp(),
+                          ],
+                        ),
                       ),
                     ),
                   ),

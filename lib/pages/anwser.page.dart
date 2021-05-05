@@ -48,13 +48,15 @@ class AnwserPage extends StatelessWidget {
               children: [
                 Expanded(
                   flex: 5,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Column(
-                      children: [
-                        const SizedBox(height: 20),
-                        buildOutPutMessage(data),
-                      ],
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 20),
+                          buildOutPutMessage(data),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -75,13 +77,15 @@ class AnwserPage extends StatelessWidget {
               children: [
                 Expanded(
                   flex: 5,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Column(
-                      children: [
-                        const SizedBox(height: 20),
-                        buildOutPutMessage(data),
-                      ],
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 20),
+                          buildOutPutMessage(data),
+                        ],
+                      ),
                     ),
                   ),
                 ),
