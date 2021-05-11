@@ -32,23 +32,26 @@ class InforCardComp extends StatelessWidget {
           children: [
             Row(
               children: [
-                CircleAvatar(
-                  minRadius: 25,
-                  child: const Icon(
-                    Icons.assignment,
-                    size: 30,
+                Flexible(
+                  flex: 1,
+                  child: CircleAvatar(
+                    minRadius: 25,
+                    child: const Icon(
+                      Icons.assignment,
+                      size: 30,
+                    ),
+                    backgroundColor: Colors.teal[400],
+                    foregroundColor: Colors.white,
                   ),
-                  backgroundColor: Colors.teal[400],
-                  foregroundColor: Colors.white,
                 ),
                 const SizedBox(width: 10),
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Flexible(
-                      child: Container(
-                        width: 300,
+                Flexible(
+                  flex: 5,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Flexible(
                         child: Text(
                           title,
                           style: TextStyle(
@@ -58,16 +61,16 @@ class InforCardComp extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                    ),
-                    Text(date),
-                  ],
+                      Text(date),
+                    ],
+                  ),
                 ),
               ],
             ),
             const SizedBox(height: 20),
             Text(
               subTitle,
-              style: TextStyle(
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),
@@ -89,7 +92,7 @@ class InforCardComp extends StatelessWidget {
                       color: Colors.grey,
                     ),
                   )
-                : SizedBox(height: 20)
+                : const SizedBox(height: 20)
           ],
         ),
       ),
